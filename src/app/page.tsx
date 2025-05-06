@@ -3,10 +3,11 @@ import { useEffect, useState, useRef } from "react";
 import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-motion";
 import InAnimation from "./Components/InAnimation";
 import Navbar from "./Components/Navbar";
+import ServiceSection from "./Components/ServiceSection";
 
 const Home: React.FC = () => {
-  const [showMain, setShowMain] = useState(false);
-  const [textIndex, setTextIndex] = useState(0);
+  const [showMain, setShowMain] = useState<boolean>(false);
+  const [textIndex, setTextIndex] = useState<number>(0);
   const rotatingTexts = ["Reality", "Future", "World"];
   
   // Mouse position tracking for parallax effect
@@ -21,11 +22,12 @@ const Home: React.FC = () => {
   const bgX = useTransform(mouseX, [-500, 500], [15, -15]);
   const bgY = useTransform(mouseY, [-500, 500], [15, -15]);
 
-  // Letter animation tracking
+  // Text scramble animation state
   const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const [mainText, setMainText] = useState("Transform Idea into");
-  const [isHovering, setIsHovering] = useState(false);
+  const [textScrambleComplete, setTextScrambleComplete] = useState(false);
 
+  // Show main content after intro animation
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowMain(true);
@@ -34,6 +36,7 @@ const Home: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Rotating text animation
   useEffect(() => {
     if (showMain) {
       const textInterval = setInterval(() => {
@@ -44,6 +47,7 @@ const Home: React.FC = () => {
     }
   }, [showMain]);
 
+  // Mouse movement effect for parallax
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       // Calculate mouse position relative to center of window
@@ -60,9 +64,9 @@ const Home: React.FC = () => {
     };
   }, [mouseX, mouseY]);
 
-  // Text scramble effect
+  // Initial text scramble effect when page loads
   useEffect(() => {
-    if (isHovering) {
+    if (showMain && !textScrambleComplete) {
       let iteration = 0;
       const originalText = "Transform Idea into";
       
@@ -82,6 +86,7 @@ const Home: React.FC = () => {
         
         if (iteration >= originalText.length) {
           clearInterval(interval);
+          setTextScrambleComplete(true);
         }
         
         iteration += 1 / 3;
@@ -89,7 +94,7 @@ const Home: React.FC = () => {
       
       return () => clearInterval(interval);
     }
-  }, [isHovering]);
+  }, [showMain, textScrambleComplete]);
 
   // Animation variants
   const fadeInUp = {
@@ -139,16 +144,31 @@ const Home: React.FC = () => {
     tap: { scale: 0.95 }
   };
 
-  // Subtle floating animation
+  // Enhanced floating animation
   const floatingAnimation = {
     y: [-8, 8],
     transition: {
       y: {
         duration: 2,
         repeat: Infinity,
-        repeatType: "reverse",
+        repeatType: "reverse" as const,
         ease: "easeInOut"
       }
+    }
+  };
+
+  // New pulse animation for added visual interest
+  const pulseAnimation = {
+    scale: [1, 1.03, 1],
+    textShadow: [
+      "0 0 5px rgba(59, 130, 246, 0.3)", 
+      "0 0 15px rgba(59, 130, 246, 0.7)", 
+      "0 0 5px rgba(59, 130, 246, 0.3)"
+    ],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+      repeatType: "reverse" as const,
     }
   };
 
@@ -196,7 +216,7 @@ const Home: React.FC = () => {
                 initial="hidden"
                 animate="visible"
               >
-                {/* 3D Text Heading with Parallax */}
+                {/* 3D Text Heading with Parallax - No Hover Effect */}
                 <motion.div
                   style={{ 
                     x: titleX,
@@ -204,13 +224,9 @@ const Home: React.FC = () => {
                   }}
                   variants={fadeInUp}
                   className="mb-2"
-                  onMouseEnter={() => setIsHovering(true)}
-                  onMouseLeave={() => {
-                    setIsHovering(false);
-                    setMainText("Transform Idea into");
-                  }}
+                  animate={textScrambleComplete ? pulseAnimation : {}}
                 >
-                  <h1 className="text-4xl md:text-6xl font-bold">
+                  <h1 className="text-4xl md:text-6xl font-bold font-headerBold">
                     {mainText}
                   </h1>
                 </motion.div>
@@ -225,21 +241,42 @@ const Home: React.FC = () => {
                   variants={fadeInUp}
                   animate={floatingAnimation}
                 >
-                  <motion.span className="inline-block mr-2">
+                  <motion.span 
+                    className="inline-block mr-2 font-headerBold"
+                    animate={{
+                      textShadow: ["0 0 8px rgba(59, 130, 246, 0.3)", "0 0 16px rgba(59, 130, 246, 0.6)", "0 0 8px rgba(59, 130, 246, 0.3)"]
+                    }}
+                    transition={{
+                      duration: 2.5,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  >
                     Digital
                   </motion.span>
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={textIndex}
-                      className="inline-block"
+                      className="inline-block font-headerBold"
                       initial={{ opacity: 0, rotateX: -20, y: 20, scale: 0.9 }}
-                      animate={{ opacity: 1, rotateX: 0, y: 0, scale: 1 }}
+                      animate={{ 
+                        opacity: 1, 
+                        rotateX: 0, 
+                        y: 0, 
+                        scale: 1,
+                        textShadow: ["0 0 8px rgba(59, 130, 246, 0.3)", "0 0 16px rgba(59, 130, 246, 0.6)", "0 0 8px rgba(59, 130, 246, 0.3)"]
+                      }}
                       exit={{ opacity: 0, rotateX: 20, y: -20, scale: 0.9 }}
                       transition={{ 
                         type: "spring", 
                         stiffness: 100, 
                         damping: 15,
-                        duration: 0.7
+                        duration: 0.7,
+                        textShadow: {
+                          duration: 2.5,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }
                       }}
                     >
                       {rotatingTexts[textIndex]}
@@ -252,7 +289,7 @@ const Home: React.FC = () => {
                   className="text-sm md:text-lg mb-12 max-w-2xl text-center"
                   style={{ x: subtitleX, y: subtitleY }}
                 >
-                  <p className="leading-relaxed text-gray-300">
+                  <p className="leading-relaxed text-gray-300 font-first">
                     We create cutting-edge digital solutions that push the boundaries of what's possible,
                     helping businesses thrive in the digital age.
                   </p>
@@ -263,7 +300,7 @@ const Home: React.FC = () => {
                   variants={fadeInUp}
                 >
                   <motion.button 
-                    className="bg-blue-600 hover:bg-blue-700 text-white py-3 px-8 rounded-lg font-medium transition-colors duration-300"
+                    className="bg-blue-600 hover:bg-blue-700 text-white font-first py-3 px-8 rounded-lg font-medium transition-colors duration-300"
                     variants={buttonVariants}
                     initial="initial"
                     animate="animate"
@@ -274,7 +311,7 @@ const Home: React.FC = () => {
                   </motion.button>
                   
                   <motion.button 
-                    className="border-2 border-blue-500 text-blue-500 hover:text-blue-400 hover:border-blue-400 py-3 px-8 rounded-lg font-medium transition-colors duration-300"
+                    className="border-2 border-blue-500 text-blue-500 font-first hover:text-blue-400 hover:border-blue-400 py-3 px-8 rounded-lg font-medium transition-colors duration-300"
                     variants={buttonVariants}
                     initial="initial"
                     animate="animate"
@@ -287,7 +324,7 @@ const Home: React.FC = () => {
               </motion.div>
             </div>
             
-            {/* Animated corner accent */}
+            {/* Enhanced animated corner accent */}
             <motion.div 
               className="absolute bottom-0 right-0 w-64 h-64 md:w-96 md:h-96 opacity-30 pointer-events-none"
               style={{
@@ -304,6 +341,7 @@ const Home: React.FC = () => {
               }}
             />
             
+            {/* Additional floating particles */}
             <motion.div 
               className="absolute top-32 left-8 w-4 h-4 rounded-full bg-blue-400 opacity-60 pointer-events-none"
               animate={{
@@ -316,9 +354,36 @@ const Home: React.FC = () => {
                 repeatType: "reverse",
               }}
             />
+            
+            <motion.div 
+              className="absolute top-64 right-24 w-3 h-3 rounded-full bg-blue-300 opacity-50 pointer-events-none"
+              animate={{
+                y: [0, -20, 0],
+                x: [0, 10, 0],
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            />
+            
+            <motion.div 
+              className="absolute bottom-32 left-1/4 w-2 h-2 rounded-full bg-blue-200 opacity-40 pointer-events-none"
+              animate={{
+                y: [0, 15, 0],
+                x: [0, -8, 0],
+                opacity: [0.2, 0.5, 0.2],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            />
           </section>
-
-          <section id="service" className="w-screen h-screen"></section>
+          <ServiceSection />
           <section id="about" className="w-screen h-screen"></section>
           <section id="contact" className="w-screen h-screen"></section>
         </div>

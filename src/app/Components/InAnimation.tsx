@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 const InAnimation = () => {
-  const [animationStage, setAnimationStage] = useState(0);
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [isFadingOut, setIsFadingOut] = useState(false);
+  const [animationStage, setAnimationStage] = useState<number>(0);
+  const [isMinimized, setIsMinimized] = useState<boolean>(false);
+  const [isFadingOut, setIsFadingOut] = useState<boolean>(false);
 
   useEffect(() => {
     const timer1 = setTimeout(() => setAnimationStage(1), 600);

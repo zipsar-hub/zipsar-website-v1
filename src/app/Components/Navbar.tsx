@@ -3,9 +3,9 @@ import React, { useState, useEffect } from 'react'
 import Logo from './Logo'
 import {motion} from 'framer-motion'
 const Navbar = () => {
-  const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('home');
+  const [scrolled, setScrolled] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [activeLink, setActiveLink] = useState<string>('home');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,12 +40,10 @@ const Navbar = () => {
     setActiveLink(sectionId);
     const element = document.getElementById(sectionId);
     if (element) {
-      // Close mobile menu if open
       if (mobileMenuOpen) {
         setMobileMenuOpen(false);
       }
       
-      // Smooth scroll to the element
       window.scrollTo({
         top: element.offsetTop - 80, // Offset for navbar height
         behavior: 'smooth'
