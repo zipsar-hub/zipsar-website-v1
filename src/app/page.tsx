@@ -4,6 +4,7 @@ import { motion, useMotionValue, useTransform, AnimatePresence } from "framer-mo
 import InAnimation from "./Components/InAnimation";
 import Navbar from "./Components/Navbar";
 import ServiceSection from "./Components/ServiceSection";
+import AboutSection from "./Components/AboutSection";
 
 const Home: React.FC = () => {
   const [showMain, setShowMain] = useState<boolean>(false);
@@ -172,6 +173,21 @@ const Home: React.FC = () => {
     }
   };
 
+  // Smooth scroll function implementation
+  function scrollToSection(sectionId: string): void {
+    const section = document.getElementById(sectionId);
+    
+    if (section) {
+      // Add a small delay to ensure any state changes complete before scrolling
+      setTimeout(() => {
+        window.scrollTo({
+          top: section.offsetTop,
+          behavior: 'smooth'
+        });
+      }, 100);
+    }
+  }
+
   return (
     <>
       {!showMain ? (
@@ -306,6 +322,7 @@ const Home: React.FC = () => {
                     animate="animate"
                     whileHover="hover"
                     whileTap="tap"
+                    onClick={() => scrollToSection("service")}
                   >
                     Explore Service
                   </motion.button>
@@ -317,6 +334,7 @@ const Home: React.FC = () => {
                     animate="animate"
                     whileHover="hover"
                     whileTap="tap"
+                    onClick={() => scrollToSection("contact")}
                   >
                     Get in Touch
                   </motion.button>
@@ -384,7 +402,7 @@ const Home: React.FC = () => {
             />
           </section>
           <ServiceSection />
-          <section id="about" className="w-screen h-screen"></section>
+          <AboutSection />
           <section id="contact" className="w-screen h-screen"></section>
         </div>
       )}
