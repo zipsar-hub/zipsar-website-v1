@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ChevronRight, Award, Users, CheckCircle } from 'lucide-react';
+import { Award, Users, CheckCircle } from 'lucide-react';
 
 interface CounterState {
   projects: number;
@@ -92,6 +92,63 @@ const AboutSection: React.FC = () => {
       ref={sectionRef}
       className="bg-gray-800/50 text-gray-100 min-h-screen w-full flex items-center overflow-hidden relative"
     >
+      {/* CSS for custom card hover animations */}
+      <style jsx>{`
+        @keyframes cardBlink {
+          0%, 100% { box-shadow: 0 0 0 rgba(59, 130, 246, 0); }
+          25% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.8); }
+          35% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
+          60% { box-shadow: 0 0 10px rgba(59, 130, 246, 0.8); }
+          70% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
+          80%, 90% { box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); }
+        }
+        
+        @keyframes purpleCardBlink {
+          0%, 100% { box-shadow: 0 0 0 rgba(168, 85, 247, 0); }
+          25% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
+          35% { box-shadow: 0 0 5px rgba(168, 85, 247, 0.3); }
+          60% { box-shadow: 0 0 10px rgba(168, 85, 247, 0.8); }
+          70% { box-shadow: 0 0 5px rgba(168, 85, 247, 0.3); }
+          80%, 90% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.6); }
+        }
+        
+        @keyframes tealCardBlink {
+          0%, 100% { box-shadow: 0 0 0 rgba(45, 212, 191, 0); }
+          25% { box-shadow: 0 0 10px rgba(45, 212, 191, 0.8); }
+          35% { box-shadow: 0 0 5px rgba(45, 212, 191, 0.3); }
+          60% { box-shadow: 0 0 10px rgba(45, 212, 191, 0.8); }
+          70% { box-shadow: 0 0 5px rgba(45, 212, 191, 0.3); }
+          80%, 90% { box-shadow: 0 0 15px rgba(45, 212, 191, 0.6); }
+        }
+        
+        .card-blue:hover {
+          animation: cardBlink 2s ease-in-out;
+          border-color: rgba(59, 130, 246, 0.8);
+        }
+        
+        .card-purple:hover {
+          animation: purpleCardBlink 2s ease-in-out;
+          border-color: rgba(168, 85, 247, 0.8);
+        }
+        
+        .card-teal:hover {
+          animation: tealCardBlink 2s ease-in-out;
+          border-color: rgba(45, 212, 191, 0.8);
+        }
+        
+        .icon-glow-blue:hover {
+          filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.8));
+        }
+        
+        .icon-glow-purple:hover {
+          filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8));
+        }
+        
+        .icon-glow-teal:hover {
+          filter: drop-shadow(0 0 8px rgba(45, 212, 191, 0.8));
+        }
+      `}</style>
+      
       {/* Background animation */}
       <div className="absolute inset-0 z-0">
         <div className={`absolute top-10 left-10 w-24 h-24 rounded-full bg-blue-500/20 transition-all duration-3000 ${
@@ -279,79 +336,94 @@ const AboutSection: React.FC = () => {
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Projects Card */}
           <div 
-            className={`bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:border-blue-500 transition-all duration-300 group transform ${
+            className={`card-blue bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 transition-all duration-300 group transform ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
             }`}
             style={{ transitionDelay: '300ms', transitionDuration: '1000ms' }}
           >
-            <div className="flex items-center mb-4">
-              <div className="p-3 bg-blue-500 bg-opacity-20 rounded-full mr-4 group-hover:bg-opacity-30 transition-all">
-                <CheckCircle className={`h-6 w-6 text-white ${isVisible ? 'animate-bounce' : ''}`} 
-                  style={{ animationDuration: '2s', animationDelay: '500ms', animationIterationCount: '3' }} />
+            <div className="relative overflow-hidden">
+              {/* Glow overlay that appears on hover */}
+              <div className="absolute inset-0 opacity-0 bg-blue-500/5 group-hover:opacity-100 transition-opacity duration-500 rounded"></div>
+              
+              <div className="flex items-center mb-4 relative z-10">
+                <div className="p-3 bg-blue-500 bg-opacity-20 rounded-full mr-4 group-hover:bg-opacity-30 transition-all icon-glow-blue">
+                  <CheckCircle className={`h-6 w-6 text-white ${isVisible ? 'animate-bounce' : ''}`} 
+                    style={{ animationDuration: '2s', animationDelay: '500ms', animationIterationCount: '3' }} />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-100 font-second group-hover:text-blue-200 transition-colors duration-300">Projects Completed</h3>
               </div>
-              <h3 className="text-xl font-semibold text-gray-100 font-second">Projects Completed</h3>
-            </div>
-            <div className="flex items-baseline">
-              <span className="text-4xl font-bold text-blue-400 font-second">{counters.projects}+</span>
-              <span className="ml-2 text-gray-400 font-second">successful projects</span>
-            </div>
-            <div className="mt-4 w-full bg-gray-700 h-1 rounded-full overflow-hidden">
-              <div 
-                className="bg-gradient-to-r from-blue-400 to-blue-600 h-full rounded-full transition-all duration-1000"
-                style={{ width: `${counters.projects * 10}%` }}
-              ></div>
+              <div className="flex items-baseline relative z-10">
+                <span className="text-4xl font-bold text-blue-400 font-second group-hover:text-blue-300 transition-colors duration-300">{counters.projects}+</span>
+                <span className="ml-2 text-gray-400 font-second group-hover:text-gray-300 transition-colors duration-300">successful projects</span>
+              </div>
+              <div className="mt-4 w-full bg-gray-700 h-1 rounded-full overflow-hidden relative z-10">
+                <div 
+                  className="bg-gradient-to-r from-blue-400 to-blue-600 h-full rounded-full transition-all duration-1000 group-hover:from-blue-300 group-hover:to-blue-500"
+                  style={{ width: `${counters.projects * 10}%` }}
+                ></div>
+              </div>
             </div>
           </div>
           
           {/* Client Satisfaction Card */}
           <div 
-            className={`bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:border-purple-500 transition-all duration-300 group transform ${
+            className={`card-purple bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 transition-all duration-300 group transform ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
             }`}
             style={{ transitionDelay: '500ms', transitionDuration: '1000ms' }}
           >
-            <div className="flex items-center mb-4">
-              <div className="p-3 bg-purple-500 bg-opacity-20 rounded-full mr-4 group-hover:bg-opacity-30 transition-all">
-                <Users className={`h-6 w-6 text-white ${isVisible ? 'animate-bounce' : ''}`}
-                  style={{ animationDuration: '2s', animationDelay: '700ms', animationIterationCount: '3' }} />
+            <div className="relative overflow-hidden">
+              {/* Glow overlay that appears on hover */}
+              <div className="absolute inset-0 opacity-0 bg-purple-500/5 group-hover:opacity-100 transition-opacity duration-500 rounded"></div>
+              
+              <div className="flex items-center mb-4 relative z-10">
+                <div className="p-3 bg-purple-500 bg-opacity-20 rounded-full mr-4 group-hover:bg-opacity-30 transition-all icon-glow-purple">
+                  <Users className={`h-6 w-6 text-white ${isVisible ? 'animate-bounce' : ''}`}
+                    style={{ animationDuration: '2s', animationDelay: '700ms', animationIterationCount: '3' }} />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-100 font-second group-hover:text-purple-200 transition-colors duration-300">Client Satisfaction</h3>
               </div>
-              <h3 className="text-xl font-semibold text-gray-100 font-second">Client Satisfaction</h3>
-            </div>
-            <div className="flex items-baseline">
-              <span className="text-4xl font-bold text-purple-400 font-second">{counters.satisfaction}%</span>
-              <span className="ml-2 text-gray-400 font-second">satisfaction rate</span>
-            </div>
-            <div className="mt-4 w-full bg-gray-700 h-1 rounded-full overflow-hidden">
-              <div 
-                className="bg-gradient-to-r from-purple-400 to-purple-600 h-full rounded-full transition-all duration-1000"
-                style={{ width: `${counters.satisfaction}%` }}
-              ></div>
+              <div className="flex items-baseline relative z-10">
+                <span className="text-4xl font-bold text-purple-400 font-second group-hover:text-purple-300 transition-colors duration-300">{counters.satisfaction}%</span>
+                <span className="ml-2 text-gray-400 font-second group-hover:text-gray-300 transition-colors duration-300">satisfaction rate</span>
+              </div>
+              <div className="mt-4 w-full bg-gray-700 h-1 rounded-full overflow-hidden relative z-10">
+                <div 
+                  className="bg-gradient-to-r from-purple-400 to-purple-600 h-full rounded-full transition-all duration-1000 group-hover:from-purple-300 group-hover:to-purple-500"
+                  style={{ width: `${counters.satisfaction}%` }}
+                ></div>
+              </div>
             </div>
           </div>
           
           {/* Awards Card */}
           <div 
-            className={`bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 hover:border-teal-500 transition-all duration-300 group transform ${
+            className={`card-teal bg-gray-800 p-6 rounded-lg shadow-lg border border-gray-700 transition-all duration-300 group transform ${
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-24 opacity-0'
             }`}
             style={{ transitionDelay: '700ms', transitionDuration: '1000ms' }}
           >
-            <div className="flex items-center mb-4">
-              <div className="p-3 bg-teal-500 bg-opacity-20 rounded-full mr-4 group-hover:bg-opacity-30 transition-all">
-                <Award className={`h-6 w-6 text-white ${isVisible ? 'animate-bounce' : ''}`}
-                  style={{ animationDuration: '2s', animationDelay: '900ms', animationIterationCount: '3' }} />
+            <div className="relative overflow-hidden">
+              {/* Glow overlay that appears on hover */}
+              <div className="absolute inset-0 opacity-0 bg-teal-500/5 group-hover:opacity-100 transition-opacity duration-500 rounded"></div>
+              
+              <div className="flex items-center mb-4 relative z-10">
+                <div className="p-3 bg-teal-500 bg-opacity-20 rounded-full mr-4 group-hover:bg-opacity-30 transition-all icon-glow-teal">
+                  <Award className={`h-6 w-6 text-white ${isVisible ? 'animate-bounce' : ''}`}
+                    style={{ animationDuration: '2s', animationDelay: '900ms', animationIterationCount: '3' }} />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-100 font-second group-hover:text-teal-200 transition-colors duration-300">Industry Awards</h3>
               </div>
-              <h3 className="text-xl font-semibold text-gray-100 font-second">Industry Awards</h3>
-            </div>
-            <div className="flex items-baseline">
-              <span className="text-4xl font-bold text-teal-400 font-second">{counters.awards}+</span>
-              <span className="ml-2 text-gray-400 font-second">prestigious awards</span>
-            </div>
-            <div className="mt-4 w-full bg-gray-700 h-1 rounded-full overflow-hidden">
-              <div 
-                className="bg-gradient-to-r from-teal-400 to-teal-600 h-full rounded-full transition-all duration-1000"
-                style={{ width: `${counters.awards * 20}%` }}
-              ></div>
+              <div className="flex items-baseline relative z-10">
+                <span className="text-4xl font-bold text-teal-400 font-second group-hover:text-teal-300 transition-colors duration-300">{counters.awards}+</span>
+                <span className="ml-2 text-gray-400 font-second group-hover:text-gray-300 transition-colors duration-300">prestigious awards</span>
+              </div>
+              <div className="mt-4 w-full bg-gray-700 h-1 rounded-full overflow-hidden relative z-10">
+                <div 
+                  className="bg-gradient-to-r from-teal-400 to-teal-600 h-full rounded-full transition-all duration-1000 group-hover:from-teal-300 group-hover:to-teal-500"
+                  style={{ width: `${counters.awards * 20}%` }}
+                ></div>
+              </div>
             </div>
           </div>
         </div>

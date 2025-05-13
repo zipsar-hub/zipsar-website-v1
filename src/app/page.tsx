@@ -5,6 +5,7 @@ import InAnimation from "./Components/InAnimation";
 import Navbar from "./Components/Navbar";
 import ServiceSection from "./Components/ServiceSection";
 import AboutSection from "./Components/AboutSection";
+import ContactSection from "./Components/ContactSection";
 
 const Home: React.FC = () => {
   const [showMain, setShowMain] = useState<boolean>(false);
@@ -403,8 +404,11 @@ const Home: React.FC = () => {
           </section>
           <ServiceSection />
           <AboutSection />
-          <section id="contact" className="w-screen h-screen"></section>
-        </div>
+          <ContactSection/>
+          <footer>
+            
+          </footer>
+          </div>
       )}
     </>
   );
