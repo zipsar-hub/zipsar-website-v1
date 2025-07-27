@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Garet";
+  src: url("/Fonts/Garet-Book.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Geova";
+  src: url("/Fonts/GeovaTrials-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "driod";
+  src: url("/Fonts/DroidLogo-Regular.ttf") format("truetype");
+}
+
+@theme {
+  --font-button: "Garet", sans-serif;
+  --font-hero: "Geova", sans-serif;
+  --font-logo: "driod", sans-serif;
+}
+.flex-center {
+  @apply flex items-center justify-center;
+}
+
+.col-center {
+  @apply flex flex-col items-center justify-center;
+}
+
+.col-around {
+  @apply flex flex-col items-center justify-around;
+}
+.col-between {
+  @apply flex flex-col items-center justify-between;
+}
+.abs-center {
+  @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+.flex-around {
+  @apply flex items-center justify-around;
+}
+.flex-between {
+  @apply flex items-center justify-between;
+}
+.inner-shadow {
+  box-shadow: inset 0 0 30px 15px white, inset 0 0 30px 30px #a556fb,
+    inset 0 0 30px 40px #4922e5;
+}
