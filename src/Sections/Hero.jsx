@@ -5,6 +5,7 @@ import SplitText from "../Components/Animated/SplitText";
 import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { SplitText as GSAPSplitText } from "gsap/SplitText";
+import { Link } from "react-scroll";
 
 gsap.registerPlugin(GSAPSplitText);
 
@@ -48,22 +49,27 @@ const Hero = () => {
       </motion.p>
 
       <div className="mt-10 mx-auto flex-center gap-5 md:gap-15 font-button md:w-[50vw] w-[90vw]">
-        <motion.button
-          initial={{ x: -50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="px-4 py-2 border border-[#a556fb] cursor-pointer rounded-[8px] text-[#a556fb]"
-        >
-          Explore Service
-        </motion.button>
-        <motion.button
-          initial={{ x: 50, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="px-4 py-2 bg-[#a556fb] cursor-pointer rounded-[8px]"
-        >
-          Get in Touch
-        </motion.button>
+        <Link to="Service" smooth>
+          <motion.button
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="px-4 py-2 border border-[#a556fb] cursor-pointer rounded-[8px] text-[#a556fb]"
+          >
+            Explore Service
+          </motion.button>
+        </Link>
+
+        <Link to="Contact" smooth>
+          <motion.button
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+            className="px-4 py-2 bg-[#a556fb] cursor-pointer rounded-[8px]"
+          >
+            Get in Touch
+          </motion.button>
+        </Link>
       </div>
     </section>
   );

@@ -153,7 +153,7 @@ const Navbar = () => {
                     : "text-white/80 hover:text-white"
                 }`}
               >
-                <Link to={item} smooth>
+                <Link to={item} offset={-80} smooth>
                   {item}
                 </Link>
               </li>
