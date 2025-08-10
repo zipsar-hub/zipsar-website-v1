@@ -140,9 +140,16 @@ const Navbar = () => {
         }`}
       >
         <div className="w-[80%] flex items-center justify-between border-b border-white/50 h-[100%]">
-          <h1 className="text-3xl font-bold font-logo cursor-pointer">
-            Zipsar
-          </h1>
+          <div className="flex items-center gap-4">
+            <img
+              src="/Images/Zipsar_trans.svg"
+              alt="Zipsar Logo"
+              className="w-[40px] h-[40px] object-fill"
+            />
+            <h1 className="text-3xl font-bold font-logo cursor-pointer">
+              Zipsar
+            </h1>
+          </div>
 
           {/* Desktop Menu */}
           <ul className="hidden md:flex gap-7 font-button">
@@ -208,7 +215,14 @@ const Navbar = () => {
       >
         <div className="w-[80vw] bg-white/10 backdrop-blur-lg border border-white/20 rounded-full px-6 py-3 shadow-lg">
           <div className="flex items-center justify-between">
-            <h1 className="text-3xl font-logo cursor-pointer">Zipsar</h1>
+            <div className="flex items-center gap-3">
+              <img
+                src="/Images/Zipsar_trans.svg"
+                alt="ZipsarLogo"
+                className="w-[40px] h-[40px] object-fill"
+              />
+              <h1 className="text-3xl font-logo cursor-pointer">Zipsar</h1>
+            </div>
 
             {/* Desktop Menu */}
             <ul className="hidden md:flex gap-7 font-button">

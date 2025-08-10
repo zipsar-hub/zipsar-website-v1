@@ -9,7 +9,7 @@ const About = () => {
       {/* Title */}
       <div className="text-center my-16">
         <h2 className="text-5xl md:text-6xl font-bold text-white mb-4">
-          About <span className="text-blue-500">Zipsar</span>
+          About <span className="text-[#a556fb]">Zipsar</span>
         </h2>
       </div>
 
@@ -74,19 +74,19 @@ const About = () => {
             {/* Stats Boxes */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
               <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-6 rounded-lg text-center transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl">
-                <div className="text-3xl font-bold text-white mb-2">150+</div>
+                <div className="text-3xl font-bold text-white mb-2">10+</div>
                 <div className="text-blue-100 text-sm font-medium">
                   Projects
                 </div>
               </div>
               <div className="bg-gradient-to-br from-purple-600 to-purple-800 p-6 rounded-lg text-center transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl">
-                <div className="text-3xl font-bold text-white mb-2">50+</div>
+                <div className="text-3xl font-bold text-white mb-2">5+</div>
                 <div className="text-purple-100 text-sm font-medium">
                   Clients
                 </div>
               </div>
               <div className="bg-gradient-to-br from-teal-600 to-teal-800 p-6 rounded-lg text-center transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl">
-                <div className="text-3xl font-bold text-white mb-2">25+</div>
+                <div className="text-3xl font-bold text-white mb-2">5+</div>
                 <div className="text-teal-100 text-sm font-medium">
                   Partners
                 </div>
@@ -115,9 +115,9 @@ const About = () => {
 
               {/* Call to Action */}
               <div className="pt-8">
-                <button className="group relative px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl">
+                <button className="group relative px-8 py-4 bg-[#a556fb] text-white font-semibold rounded-lg overflow-hidden transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-2xl">
                   <span className="relative z-10">Learn More About Us</span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-[#a556fb] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </button>
               </div>
             </div>

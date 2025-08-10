@@ -21,10 +21,13 @@ const Footer = () => {
             {/* First Part - Company Info */}
             <div className="space-y-6">
               <div>
-                <h3 className="text-3xl font-bold text-white mb-4">
-                  <GradientText textAlign="left" className="font-bold">
-                    Zipsar
-                  </GradientText>
+                <h3 className="text-3xl font-bold font-logo text-white mb-4 flex items-center gap-2">
+                  <img
+                    src="/Images/Zipsar_trans.svg"
+                    alt="Zipsar_logo"
+                    className="w-[40px] h-[40px] object-fill"
+                  />
+                  Zipsar
                 </h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
                   Transforming ideas into digital reality with advanced
@@ -173,15 +176,15 @@ const Footer = () => {
               <h4 className="text-xl font-semibold text-white mb-4">Contact</h4>
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <MapPin className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                  <MapPin className="w-5 h-5 text-[#a556fb] flex-shrink-0 mt-0.5" />
                   <div className="text-gray-400 text-sm leading-relaxed">
                     <p>KGISL Campus</p>
-                    <p>Sarvanampatti, Coimbatore - 641 035</p>
+                    <p>Sarvanampatti, Coimbatore - 035</p>
                   </div>
                 </div>
 
                 <div className="flex items-center space-x-3">
-                  <Mail className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                  <Mail className="w-5 h-5 text-[#a556fb] flex-shrink-0" />
                   <a
                     href="mailto:support@zipsar.com"
                     className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-sm"
@@ -191,7 +194,7 @@ const Footer = () => {
                 </div>
 
                 <div className="flex items-center space-x-3">
-                  <Phone className="w-5 h-5 text-blue-500 flex-shrink-0" />
+                  <Phone className="w-5 h-5 text-[#a556fb] flex-shrink-0" />
                   <a
                     href="tel:+919786897669"
                     className="text-gray-400 hover:text-blue-400 transition-colors duration-300 text-sm"

@@ -10,43 +10,37 @@ const Service = () => {
       title: "Web Development",
       content:
         "Create stunning, responsive websites that captivate your audience and drive business growth. Our expert team specializes in modern web technologies, ensuring your digital presence stands out in today's competitive landscape.",
-      image:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+      image: "Images/webdev.jpg",
     },
     {
       title: "Mobile Apps",
       content:
         "Transform your ideas into powerful mobile applications that engage users across all platforms. We develop intuitive, feature-rich apps that deliver exceptional user experiences and drive customer satisfaction.",
-      image:
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=500&h=300&fit=crop",
+      image: "/Images/MobileApp.jpg",
     },
     {
       title: "UI/UX Design",
       content:
         "Craft beautiful, user-centered designs that tell your brand story and create meaningful connections with your audience. Our design philosophy focuses on aesthetics, functionality, and user satisfaction.",
-      image:
-        "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=500&h=300&fit=crop",
+      image: "Images/uiux.jpg",
     },
     {
-      title: "Digital Marketing",
+      title: "AI Integration",
       content:
-        "Amplify your brand's reach through strategic digital marketing campaigns that convert visitors into loyal customers. We leverage data-driven insights to maximize your ROI and accelerate business growth.",
-      image:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
+        "Implement cutting-edge AI solutions that enhance your business operations and decision-making processes. From chatbots to predictive analytics, we help you leverage AI to stay ahead of the curve.",
+      image: "Images/Ai.jpg",
     },
     {
-      title: "Cloud Solutions",
+      title: "DevOps Solutions",
       content:
         "Scale your business with robust cloud infrastructure and services that ensure reliability, security, and performance. Our cloud experts help you navigate the digital transformation journey with confidence.",
-      image:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=500&h=300&fit=crop",
+      image: "/Images/devops.jpg",
     },
     {
-      title: "Data Analytics",
+      title: "Tech Consultation",
       content:
-        "Unlock the power of your data with advanced analytics solutions that provide actionable insights and drive informed business decisions. Turn raw data into competitive advantage with our expertise.",
-      image:
-        "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&h=300&fit=crop",
+        "Expert guidance to help you navigate the complex world of technology. From strategy development to implementation, we provide tailored solutions that align with your business goals.",
+      image: "Images/consultation.jpg",
     },
   ];
 
