@@ -1,9 +1,8 @@
 import { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SplitText as GSAPSplitText } from "gsap/SplitText";
 
-gsap.registerPlugin(ScrollTrigger, GSAPSplitText);
+gsap.registerPlugin(ScrollTrigger);
 
 export default function GradientText({
   children,
@@ -11,8 +10,8 @@ export default function GradientText({
   colors = ["#ffffff", "#a556fb", "#4922e5"],
   animationSpeed = 8,
   showBorder = false,
-  stagger,
-  delay,
+  stagger = 50,
+  delay = 0,
   duration = 0.6,
   ease = "power3.out",
   splitType = "chars",
@@ -29,7 +28,7 @@ export default function GradientText({
   const scrollTriggerRef = useRef(null);
 
   const gradientStyle = {
-    backgroundImage: `linear-gradient(to right, ${colors.join(", ")})`,
+    backgroundImage: `linear-gradient(45deg, ${colors.join(", ")})`,
     animationDuration: `${animationSpeed}s`,
   };
 
@@ -39,59 +38,65 @@ export default function GradientText({
       typeof window === "undefined" ||
       !ref.current ||
       !children
-    )
+    ) {
       return;
+    }
 
     const el = ref.current.querySelector(".gradient-text-content");
     if (!el) return;
 
     animationCompletedRef.current = false;
 
-    const absoluteLines = splitType === "lines";
-    if (absoluteLines) el.style.position = "relative";
+    // Simple text splitting without external library
+    const text = el.textContent;
+    let targets = [];
 
-    let splitter;
-    try {
-      splitter = new GSAPSplitText(el, {
-        type: splitType,
-        absolute: absoluteLines,
-        linesClass: "split-line",
-      });
-    } catch (error) {
-      console.error("Failed to create SplitText:", error);
-      return;
-    }
-
-    let targets;
-    switch (splitType) {
-      case "lines":
-        targets = splitter.lines;
-        break;
-      case "words":
-        targets = splitter.words;
-        break;
-      case "chars":
-        targets = splitter.chars;
-        break;
-      default:
-        targets = splitter.chars;
+    if (splitType === "chars") {
+      el.innerHTML = text
+        .split("")
+        .map(
+          (char, i) =>
+            `<span class="char" data-char="${i}">${
+              char === " " ? "&nbsp;" : char
+            }</span>`
+        )
+        .join("");
+      targets = el.querySelectorAll(".char");
+    } else if (splitType === "words") {
+      el.innerHTML = text
+        .split(" ")
+        .map((word, i) => `<span class="word" data-word="${i}">${word}</span>`)
+        .join(" ");
+      targets = el.querySelectorAll(".word");
+    } else {
+      // Default to chars
+      el.innerHTML = text
+        .split("")
+        .map(
+          (char, i) =>
+            `<span class="char" data-char="${i}">${
+              char === " " ? "&nbsp;" : char
+            }</span>`
+        )
+        .join("");
+      targets = el.querySelectorAll(".char");
     }
 
     if (!targets || targets.length === 0) {
-      console.warn("No targets found for SplitText animation");
-      splitter.revert();
+      console.warn("No targets found for split animation");
       return;
     }
 
     // Apply gradient styles to each split element
     targets.forEach((target) => {
+      target.style.display = "inline-block";
       target.style.willChange = "transform, opacity";
       target.style.backgroundImage = gradientStyle.backgroundImage;
       target.style.backgroundClip = "text";
       target.style.webkitBackgroundClip = "text";
       target.style.backgroundSize = "300% 100%";
-      target.style.animation = "gradient 8s linear infinite";
       target.style.color = "transparent";
+      target.style.animation = `gradientMove ${animationSpeed}s linear infinite`;
     });
 
     const startPct = (1 - threshold) * 100;
@@ -143,8 +148,9 @@ export default function GradientText({
         scrollTriggerRef.current = null;
       }
       gsap.killTweensOf(targets);
-      if (splitter) {
-        splitter.revert();
+      // Restore original text
+      if (el) {
+        el.innerHTML = text;
       }
     };
   }, [
@@ -161,69 +167,75 @@ export default function GradientText({
     onAnimationComplete,
     enableSplitAnimation,
     gradientStyle.backgroundImage,
+    animationSpeed,
   ]);
 
   return (
-    <div
-      ref={ref}
-      className={`relative mx-auto flex max-w-fit flex-row items-center justify-center rounded-[1.25rem] backdrop-blur transition-shadow duration-500 overflow-hidden cursor-pointer ${className}`}
-      style={{ textAlign }}
-    >
-      {showBorder && (
-        <div
-          className="absolute inset-0 bg-cover z-0 pointer-events-none animate-gradient"
-          style={{
-            ...gradientStyle,
-            backgroundSize: "300% 100%",
-          }}
-        >
-          <div
-            className="absolute inset-0 bg-black rounded-[1.25rem] z-[-1]"
-            style={{
-              width: "calc(100% - 2px)",
-              height: "calc(100% - 2px)",
-              left: "50%",
-              top: "50%",
-              transform: "translate(-50%, -50%)",
-            }}
-          ></div>
-        </div>
-      )}
-      <div
-        className={`gradient-text-content inline-block relative z-2 ${
-          enableSplitAnimation
-            ? "split-parent overflow-hidden whitespace-normal"
-            : "text-transparent bg-cover"
-        }`}
-        style={
-          !enableSplitAnimation
-            ? {
-                ...gradientStyle,
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                backgroundSize: "300% 100%",
-                animation: "gradient 8s linear infinite",
-              }
-            : {}
+    <>
+      <style jsx global>{`
+        @keyframes gradientMove {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
         }
+
+        .gradient-border {
+          animation: gradientMove 8s linear infinite;
+        }
+      `}</style>
+
+      <div
+        ref={ref}
+        className={`relative mx-auto flex max-w-fit flex-row items-center justify-center rounded-[1.25rem] transition-shadow duration-500 cursor-pointer ${className}`}
+        style={{ textAlign }}
       >
-        {children}
-        <style jsx>
-          {`
-            @keyframes gradient {
-              0% {
-                background-position: 0% 50%;
-              }
-              50% {
-                background-position: 100% 50%;
-              }
-              100% {
-                background-position: 0% 50%;
-              }
-            }
-          `}
-        </style>
+        {showBorder && (
+          <div
+            className="absolute inset-0 gradient-border z-0 pointer-events-none"
+            style={{
+              ...gradientStyle,
+              backgroundSize: "300% 100%",
+            }}
+          >
+            <div
+              className="absolute inset-0 bg-black rounded-[1.25rem] z-[-1]"
+              style={{
+                width: "calc(100% - 2px)",
+                height: "calc(100% - 2px)",
+                left: "50%",
+                top: "50%",
+                transform: "translate(-50%, -50%)",
+              }}
+            />
+          </div>
+        )}
+        <div
+          className={`gradient-text-content inline-block relative z-10 ${
+            enableSplitAnimation
+              ? "split-parent overflow-hidden whitespace-normal"
+              : "text-transparent bg-clip-text"
+          }`}
+          style={
+            !enableSplitAnimation
+              ? {
+                  ...gradientStyle,
+                  backgroundClip: "text",
+                  WebkitBackgroundClip: "text",
+                  backgroundSize: "300% 100%",
+                  animation: `gradientMove ${animationSpeed}s linear infinite`,
+                }
+              : {}
+          }
+        >
+          {children}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
