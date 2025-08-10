@@ -13,7 +13,7 @@ import GradientText from "../Animated/GradiantText";
 
 const Footer = () => {
   return (
-    <footer className="w-full bg-[#121314] font-sans">
+    <footer className="w-full bg-[#121314] font-button">
       {/* Main Footer Content */}
       <div className="px-6 md:px-12 py-16">
         <div className="max-w-7xl mx-auto">
@@ -22,7 +22,9 @@ const Footer = () => {
             <div className="space-y-6">
               <div>
                 <h3 className="text-3xl font-bold text-white mb-4">
-                  <GradientText textAlign="left">Zipsar</GradientText>
+                  <GradientText textAlign="left" className="font-bold">
+                    Zipsar
+                  </GradientText>
                 </h3>
                 <p className="text-gray-400 text-sm leading-relaxed">
                   Transforming ideas into digital reality with advanced
