@@ -52,7 +52,9 @@ const MobileMenu = ({ isOpen, onClose, activeSection }) => {
             </li>
           ))}
           <li className="pt-2">
-            <button
+            <Link
+              to="Contact"
+              smooth
               className="w-full px-3 py-2 border border-white/50 rounded-full cursor-pointer hover:bg-white/10 transition-colors"
               onClick={onClose}
             >
@@ -62,7 +64,7 @@ const MobileMenu = ({ isOpen, onClose, activeSection }) => {
                 speed={5}
                 className="font-semibold font-button"
               />
-            </button>
+            </Link>
           </li>
         </ul>
       </div>
@@ -230,14 +232,18 @@ const Navbar = () => {
             </ul>
 
             {/* Desktop Button */}
-            <button className="hidden md:block px-3 py-2 border bg-black border-white/50 rounded-full cursor-pointer hover:bg-gray-900 transition-colors">
+            <Link
+              to="Contact"
+              smooth
+              className="hidden md:block px-3 py-2 border bg-black border-white/50 rounded-full cursor-pointer hover:bg-gray-900 transition-colors"
+            >
               <ShinyText
                 text={"Get in Touch"}
                 disabled={false}
                 speed={5}
                 className="font-semibold font-button"
               />
-            </button>
+            </Link>
 
             {/* Mobile Menu Button */}
             <button

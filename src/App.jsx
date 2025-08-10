@@ -1,3 +1,4 @@
+import Footer from "./Components/Common/Footer";
 import Navbar from "./Components/Common/Navbar";
 import About from "./Sections/About";
 import Contact from "./Sections/Contact";
@@ -12,6 +13,7 @@ const App = () => {
       <Service />
       <About />
       <Contact />
+      <Footer />
     </div>
   );
 };
