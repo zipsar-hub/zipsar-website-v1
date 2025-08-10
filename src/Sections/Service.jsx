@@ -76,7 +76,7 @@ const Service = () => {
 
         <div className="w-full py-8 sm:py-12 md:py-16 lg:py-20">
           <div className="w-full mx-auto p-4 sm:p-6 md:p-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 lg:gap-12 auto-rows-fr">
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10">
               {services.map((service, index) => (
                 <motion.div
                   key={index}
@@ -86,6 +86,7 @@ const Service = () => {
                     duration: 0.6,
                     delay: index * 0.2, // stagger effect
                   }}
+                  className="h-full" // Ensures motion.div takes full height
                 >
                   <ServiceCard
                     title={service.title}
