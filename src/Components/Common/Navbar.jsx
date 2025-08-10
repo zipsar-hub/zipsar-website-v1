@@ -24,7 +24,7 @@ const MobileMenu = ({ isOpen, onClose, activeSection }) => {
 
   return (
     <div
-      className={`fixed inset-0 bg-black/90 backdrop-blur-md z-40 transition-opacity duration-300 ${
+      className={`fixed inset-0 bg-black/90 backdrop-blur-md z-100 transition-opacity duration-300 ${
         isOpen ? "opacity-100 visible" : "opacity-0 invisible"
       }`}
       onClick={onClose}
@@ -198,7 +198,7 @@ const Navbar = () => {
 
       {/* Fixed Scrolled Navbar */}
       <div
-        className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-1/2 transform -translate-x-1/2 z-100 transition-all duration-500 ${
           isScrolled
             ? "translate-y-4 opacity-100"
             : "-translate-y-full opacity-0"
